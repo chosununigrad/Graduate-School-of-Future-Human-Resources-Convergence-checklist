@@ -201,7 +201,7 @@ const CONFIG = {
   address: "(우)61452 전남광주통합특별시 동구 조선대길 146 조선대학교 대학원 교학팀 (본관 중앙 3층 3156호)",
   links: {
     apply:  "https://gn.chosun.ac.kr/app",
-    notice: "https://gsf.chosun.ac.kr/~gdf",
+    notice: "https://gsf.chosun.ac.kr/bbs/gsf/1184/artclList.do",   // 대학원 공지사항 목록
     guide:  "2027-guide.pdf"      // 모집요강 PDF (index.html과 같은 폴더)
   },
 
@@ -325,7 +325,7 @@ function pickDept(i){
 }
 function advance(n){ S.step=n; S.max=Math.max(S.max||1,n); save(); renderSteps(); setTimeout(()=>{ const el=document.getElementById(n===2?'stepFlags':'stepList'); if(el) el.scrollIntoView({behavior:'smooth',block:'start'}); },80); }
 function goStep(n){
-  if(n>(S.max||1)) return;
+  if(n>(S.max||1) && !(n===3 && (S.max||1)>=2)) return;
   if(n===3){ if(S.dept==null||pendingAsk()) return; S.max=3; }
   S.step=n; save(); renderSteps();
   if(n===3) setTimeout(()=>{ $('stepList').scrollIntoView({behavior:'smooth',block:'start'}); },80);
