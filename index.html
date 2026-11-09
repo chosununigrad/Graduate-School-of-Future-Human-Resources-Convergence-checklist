@@ -28,6 +28,8 @@ header p{margin:0;opacity:.9;font-size:14.5px}
 .opt{border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;background:#fff;cursor:pointer;font-size:15px;text-align:left;font-family:inherit;color:var(--ink)}
 .opt:hover{border-color:var(--blue)}
 .opt.on{border-color:var(--blue);background:var(--sky);color:var(--navy);font-weight:700}
+#deptOpts{grid-template-columns:1fr;gap:8px}
+#deptOpts .opt{width:100%;padding:13px 14px;font-size:15.5px}
 .q{margin-top:14px;padding:14px;border-radius:12px;background:var(--warnbg);border:1px solid #f3d9a4}
 .q p{margin:0 0 8px;font-weight:700}
 .q .row{display:flex;gap:8px;flex-wrap:wrap}
@@ -65,7 +67,20 @@ th{color:var(--mute);font-weight:600;font-size:13px}
 .privacy{font-size:13px;color:var(--mute);margin-top:10px}
 footer{text-align:center;font-size:13px;color:var(--mute);margin-top:26px}
 footer a{color:var(--blue)}
+
+.hd{cursor:pointer;user-select:none}
+.hd .sum{margin-left:auto;font-size:13px;font-weight:600;color:var(--mute);text-align:right}
+.hd .chev{font-size:14px;color:var(--mute);transition:transform .2s}
+.step.collapsed .body{display:none}
+.step.collapsed .chev{transform:rotate(-90deg)}
+.step.collapsed h2{margin-bottom:0}
+.step.locked{opacity:.55}
+.step.locked .hd{cursor:not-allowed}
+.step.done-step .num{background:var(--ok)}
+.nextbtn{display:block;width:100%;margin-top:14px;border:0;background:var(--blue);color:#fff;font-weight:700;border-radius:10px;padding:13px;font-size:15.5px;cursor:pointer;font-family:inherit}
 @media print{
+ #stepList .body{display:block!important}
+
  body{background:#fff}header{background:#fff;color:#000;padding:10px 0}
  .no-print,#stepDept,#stepFlags{display:none!important}
  .card{box-shadow:none;border:0;padding:6px 0;margin-top:8px}
@@ -97,22 +112,28 @@ footer a{color:var(--blue)}
  </section>
 
  <!-- STEP 1 -->
- <section class="card no-print" id="stepDept">
-  <h2><span class="num">1</span>지원 학과를 선택하세요</h2>
-  <div class="opts" id="deptOpts"></div>
-  <div id="deptQ"></div>
+ <section class="card no-print step" id="stepDept">
+  <h2 class="hd" onclick="goStep(1)"><span class="num">1</span>지원 학과를 선택하세요<span class="sum" id="sum1"></span><span class="chev">▾</span></h2>
+  <div class="body">
+   <div class="opts" id="deptOpts"></div>
+   <div id="deptQ"></div>
+  </div>
  </section>
 
  <!-- STEP 2 -->
- <section class="card no-print" id="stepFlags">
-  <h2><span class="num">2</span>해당되는 항목을 모두 선택하세요</h2>
+ <section class="card no-print step" id="stepFlags">
+  <h2 class="hd" onclick="goStep(2)"><span class="num">2</span>해당되는 항목을 모두 선택하세요<span class="sum" id="sum2"></span><span class="chev">▾</span></h2>
+  <div class="body">
   <div class="flags" id="flagBox"></div>
   <p class="privacy">🔒 선택·체크 내용은 이 기기의 브라우저에만 저장되며 서버로 전송되지 않습니다.</p>
+  <button class="nextbtn" onclick="goStep(3)">다음 ▶ 내 제출서류 확인하기 (해당 없으면 그냥 누르세요)</button>
+  </div>
  </section>
 
  <!-- STEP 3 -->
- <section class="card" id="stepList">
-  <h2><span class="num">3</span>나의 제출서류 체크리스트</h2>
+ <section class="card step" id="stepList">
+  <h2 class="hd" onclick="goStep(3)"><span class="num">3</span>나의 제출서류 체크리스트<span class="sum" id="sum3"></span><span class="chev">▾</span></h2>
+  <div class="body">
   <div id="summary" style="font-size:14.5px;color:var(--mute);margin-bottom:8px"></div>
   <div class="progtxt"><span id="progLabel">0 / 0 준비 완료</span><b id="progPct">0%</b></div>
   <div class="prog"><i id="progBar"></i></div>
@@ -120,6 +141,7 @@ footer a{color:var(--blue)}
   <div class="no-print">
    <button class="act" onclick="window.print()">🖨️ 인쇄 / PDF 저장</button>
    <button class="act sub" onclick="resetAll()">처음부터 다시</button>
+  </div>
   </div>
  </section>
 
@@ -179,8 +201,8 @@ const CONFIG = {
   address: "(우)61452 전남광주통합특별시 동구 조선대길 146 조선대학교 대학원 교학팀 (본관 중앙 3층 3156호)",
   links: {
     apply:  "https://gn.chosun.ac.kr/app",
-    notice: "https://u.chosun.ac.kr/csu/X1Vc9gtTb5/ul.do",
-    guide:  "2027-guide.pdf"      // 모집요강 PDF 주소가 있으면 교체
+    notice: "https://gsf.chosun.ac.kr/~gdf",
+    guide:  "2027-guide.pdf"      // 모집요강 PDF (index.html과 같은 폴더)
   },
 
   contacts: [
@@ -239,6 +261,8 @@ const CONFIG = {
     {id:"grad", group:"common", title:"대학(원) 졸업(예정)증명서 1부", desc:"학사학위증명서 또는 졸업(예정)증명서. 원서접수일 기준 6개월 이내 발급분."},
     {id:"score", group:"common", title:"대학 전 학년 성적증명서 1부", desc:"반드시 평점평균과 평점만점이 기재되어야 합니다 (예: 총 평점평균 4.21/4.5). 6개월 이내 발급분."},
 
+    {id:"payproof", group:"common", title:"전형료 이체확인증 1부", desc:"전형료 60,000원을 납부한 뒤의 이체확인증입니다. 납부계좌는 온라인 원서 제출 후 마지막 화면에서 확인하며, 반드시 본인 이름(실명)으로 입금해야 합니다."},
+
     {id:"transferScore", group:"cond", when:"transfer", title:"편입 전 대학(원) 성적증명서 추가 1부", desc:"편입학자는 편입 전·후 대학(원)의 성적증명서를 각 1부씩 제출합니다. (원서 작성 시 대학명·평점은 최종 학교 기준으로 입력)"},
     {id:"employment", group:"cond", when:"employed", title:"재직증명서 1부", desc:"현재 재직 중인 지원자 제출 서류입니다. 재직 중인 기관(직장)에서 발급받으세요. 발급일 기준은 다른 증명서와 같이 원서접수일로부터 6개월 이내 발급분으로 준비하는 것을 권장합니다."},
     {id:"military", group:"cond", when:"military", title:"군복무확인서 1부", desc:"현역군인 지원자 제출 서류입니다. (모집요강 표기: 군복무확인서)  발급 부대에 문의하세요."},
@@ -255,7 +279,7 @@ const CONFIG = {
 
 /* ========================= 로직 ========================= */
 const $ = id => document.getElementById(id);
-let S = {dept:null, asks:{}, flags:{}, checked:{}};
+let S = {dept:null, asks:{}, flags:{}, checked:{}, step:1, max:1};
 
 function load(){ try{ const j=JSON.parse(localStorage.getItem(CONFIG.storageKey)); if(j) S=Object.assign(S,j);}catch(e){} }
 function save(){ try{ localStorage.setItem(CONFIG.storageKey, JSON.stringify(S)); }catch(e){} }
@@ -272,7 +296,7 @@ function init(){
   $("footGuide").href = CONFIG.links.guide;
   $("contactTbl").innerHTML = `<tr><th>구분</th><th>전화</th></tr>` + CONFIG.contacts.map(c=>`<tr><td>${c.name}</td><td><a href="tel:${c.tel.split(/[\/,]/)[0].trim()}">${c.tel}</a></td></tr>`).join("");
   renderDday(); setInterval(renderDday, 60000);
-  renderDepts(); renderFlags(); renderAll();
+  renderDepts(); renderFlags(); renderAll(); renderSteps();
 }
 
 function renderDday(){
@@ -297,6 +321,29 @@ function renderDepts(){
 function pickDept(i){
   if(S.dept!==i){ S.asks={}; }
   S.dept=i; save(); renderDepts(); renderAll();
+  if(!CONFIG.depts[i].ask) advance(2); else renderSteps();
+}
+function advance(n){ S.step=n; S.max=Math.max(S.max||1,n); save(); renderSteps(); setTimeout(()=>{ const el=document.getElementById(n===2?'stepFlags':'stepList'); if(el) el.scrollIntoView({behavior:'smooth',block:'start'}); },80); }
+function goStep(n){
+  if(n>(S.max||1)) return;
+  if(n===3){ if(S.dept==null||pendingAsk()) return; S.max=3; }
+  S.step=n; save(); renderSteps();
+  if(n===3) setTimeout(()=>{ $('stepList').scrollIntoView({behavior:'smooth',block:'start'}); },80);
+}
+function renderSteps(){
+  const mx=S.max||1, st=S.step||1;
+  [[1,'stepDept'],[2,'stepFlags'],[3,'stepList']].forEach(([n,id])=>{
+    const el=$(id);
+    el.classList.toggle('collapsed', n!==st);
+    el.classList.toggle('locked', n>mx);
+    el.classList.toggle('done-step', n<mx || (n<st));
+  });
+  const d=S.dept!=null?CONFIG.depts[S.dept]:null;
+  let s1=""; if(d){ s1=d.name; if(d.ask&&S.asks[d.ask]) s1+=" · "+CONFIG.asks[d.ask][S.asks[d.ask]]; }
+  $("sum1").textContent=s1?("✔ "+s1):"";
+  const fc=CONFIG.flags.filter(f=>S.flags[f.id]).length;
+  $("sum2").textContent=mx>=3||st>=3?("✔ "+(fc?fc+"개 선택":"해당 없음")):"";
+  $("sum3").textContent=mx<3?"🔒":"";
 }
 function renderAsk(){
   const box=$("deptQ"); box.innerHTML="";
@@ -313,7 +360,7 @@ function renderAsk(){
   }
   box.innerHTML=html;
 }
-function pickAsk(id,v){ S.asks[id]=v; save(); renderAsk(); renderAll(); }
+function pickAsk(id,v){ S.asks[id]=v; save(); renderAsk(); renderAll(); advance(2); }
 
 function renderFlags(){
   $("flagBox").innerHTML = CONFIG.flags.map(f=>`
@@ -321,7 +368,7 @@ function renderFlags(){
     <input type="checkbox" ${S.flags[f.id]?'checked':''} onchange="toggleFlag('${f.id}',this.checked)">
     <span><b>${f.label}</b><small>${f.desc}</small></span></label>`).join("");
 }
-function toggleFlag(id,v){ S.flags[id]=v; save(); renderFlags(); renderAll(); }
+function toggleFlag(id,v){ S.flags[id]=v; save(); renderFlags(); renderAll(); renderSteps(); }
 
 function activeKeys(){
   const k={};
@@ -407,7 +454,7 @@ function copyAddr(){
 
 function resetAll(){
   if(!confirm("선택과 체크 내용을 모두 지우고 처음부터 시작할까요?")) return;
-  S={dept:null,asks:{},flags:{},checked:{}}; save(); renderDepts(); renderFlags(); renderAll();
+  S={dept:null,asks:{},flags:{},checked:{},step:1,max:1}; save(); renderDepts(); renderFlags(); renderAll(); renderSteps(); window.scrollTo({top:0,behavior:'smooth'});
 }
 
 init();
