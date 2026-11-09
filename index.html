@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>입학 지원자 제출서류 체크리스트 | 조선대학교 미래인재융합대학원</title>
+<style>
+:root{--navy:#12306b;--blue:#1f5fbf;--sky:#eaf2ff;--line:#d5deee;--ink:#1c2433;--mute:#667088;--ok:#17803d;--warn:#b45309;--warnbg:#fff6e5;--red:#c0262d;}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Pretendard","Noto Sans KR","Malgun Gothic",sans-serif;color:var(--ink);background:#f5f8fd;line-height:1.6}
+.wrap{max-width:860px;margin:0 auto;padding:0 16px 60px}
+header{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;padding:36px 16px 70px}
+header .in{max-width:860px;margin:0 auto}
+header small{opacity:.85;font-size:14px}
+header h1{margin:6px 0 8px;font-size:clamp(24px,5vw,34px);line-height:1.3}
+header p{margin:0;opacity:.9;font-size:14.5px}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px;margin-top:16px;box-shadow:0 2px 8px rgba(18,48,107,.05)}
+.top{margin-top:-46px}
+.card h2{margin:0 0 12px;font-size:18px;color:var(--navy);display:flex;align-items:center;gap:8px}
+.num{display:inline-flex;width:26px;height:26px;border-radius:50%;background:var(--blue);color:#fff;font-size:14px;align-items:center;justify-content:center;flex:none}
+.dday{display:flex;flex-wrap:wrap;gap:10px}
+.dd{flex:1 1 220px;border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:var(--sky)}
+.dd b{display:block;font-size:13px;color:var(--mute);font-weight:600}
+.dd .big{font-size:26px;font-weight:800;color:var(--navy)}
+.dd .big.urgent{color:var(--red)}
+.dd span{font-size:13px;color:var(--mute)}
+.opts{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.opt{border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;background:#fff;cursor:pointer;font-size:15px;text-align:left;font-family:inherit;color:var(--ink)}
+.opt:hover{border-color:var(--blue)}
+.opt.on{border-color:var(--blue);background:var(--sky);color:var(--navy);font-weight:700}
+.q{margin-top:14px;padding:14px;border-radius:12px;background:var(--warnbg);border:1px solid #f3d9a4}
+.q p{margin:0 0 8px;font-weight:700}
+.q .row{display:flex;gap:8px;flex-wrap:wrap}
+.q .opt{flex:1 1 140px}
+.flags{display:grid;gap:8px}
+.flag{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border:1px solid var(--line);border-radius:10px;cursor:pointer}
+.flag input{margin-top:5px;width:18px;height:18px;flex:none}
+.flag small{display:block;color:var(--mute)}
+.flag.on{background:var(--sky);border-color:var(--blue)}
+.prog{height:12px;background:#e6ecf7;border-radius:99px;overflow:hidden;margin:6px 0 4px}
+.prog i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--blue),var(--ok));transition:width .3s}
+.progtxt{font-size:14px;color:var(--mute);display:flex;justify-content:space-between}
+.grp{margin-top:16px}
+.grp h3{margin:0 0 8px;font-size:15px;color:var(--navy);border-left:4px solid var(--blue);padding-left:8px}
+.item{display:flex;gap:12px;padding:12px;border:1px solid var(--line);border-radius:10px;margin-bottom:8px;cursor:pointer;background:#fff}
+.item input{width:22px;height:22px;margin-top:2px;flex:none;accent-color:var(--ok)}
+.item .t{font-weight:700}
+.item .d{font-size:13.5px;color:var(--mute);margin-top:2px}
+.item .tag{display:inline-block;font-size:12px;font-weight:700;padding:1px 8px;border-radius:99px;margin-left:6px;background:var(--sky);color:var(--blue);vertical-align:middle}
+.item .tag.cond{background:var(--warnbg);color:var(--warn)}
+.item .tag.later{background:#efe9ff;color:#5b34b5}
+.item.done{background:#f1faf4;border-color:#bfe3ca}
+.item.done .t{color:var(--ok);text-decoration:line-through;text-decoration-color:#9bd0ae}
+.item a{color:var(--blue);font-size:13.5px;font-weight:600}
+.notice{background:var(--warnbg);border:1px solid #f3d9a4;border-radius:12px;padding:12px 14px;font-size:14px}
+.notice ul{margin:6px 0 0;padding-left:18px}
+.addr{background:var(--sky);border-radius:12px;padding:14px;font-size:15px}
+.addr b{color:var(--navy)}
+button.act,a.act{display:inline-block;border:0;background:var(--blue);color:#fff;font-weight:700;border-radius:10px;padding:10px 16px;font-size:14.5px;cursor:pointer;font-family:inherit;text-decoration:none;margin:8px 8px 0 0}
+button.act.sub,a.act.sub{background:#fff;color:var(--blue);border:1.5px solid var(--blue)}
+table{width:100%;border-collapse:collapse;font-size:14.5px}
+td,th{border-bottom:1px solid var(--line);padding:8px 6px;text-align:left}
+th{color:var(--mute);font-weight:600;font-size:13px}
+.hide{display:none!important}
+.privacy{font-size:13px;color:var(--mute);margin-top:10px}
+footer{text-align:center;font-size:13px;color:var(--mute);margin-top:26px}
+footer a{color:var(--blue)}
+@media print{
+ body{background:#fff}header{background:#fff;color:#000;padding:10px 0}
+ .no-print,#stepDept,#stepFlags{display:none!important}
+ .card{box-shadow:none;border:0;padding:6px 0;margin-top:8px}
+ .top{margin-top:0}
+ .item{break-inside:avoid;cursor:default}
+}
+</style>
+</head>
+<body>
+
+<header>
+ <div class="in">
+  <small id="hdSub"></small>
+  <h1>입학 지원자 제출서류 체크리스트</h1>
+  <p>지원 학과와 해당 사항을 선택하면 <b>나에게 필요한 서류만</b> 보여드립니다.</p>
+ </div>
+</header>
+
+<div class="wrap">
+
+ <!-- 일정 -->
+ <section class="card top" id="schedule">
+  <h2>📅 마감 일정</h2>
+  <div class="dday" id="ddayBox"></div>
+  <div class="notice" style="margin-top:12px">
+   <b>꼭 확인하세요</b>
+   <ul id="keyNotes"></ul>
+  </div>
+ </section>
+
+ <!-- STEP 1 -->
+ <section class="card no-print" id="stepDept">
+  <h2><span class="num">1</span>지원 학과를 선택하세요</h2>
+  <div class="opts" id="deptOpts"></div>
+  <div id="deptQ"></div>
+ </section>
+
+ <!-- STEP 2 -->
+ <section class="card no-print" id="stepFlags">
+  <h2><span class="num">2</span>해당되는 항목을 모두 선택하세요</h2>
+  <div class="flags" id="flagBox"></div>
+  <p class="privacy">🔒 선택·체크 내용은 이 기기의 브라우저에만 저장되며 서버로 전송되지 않습니다.</p>
+ </section>
+
+ <!-- STEP 3 -->
+ <section class="card" id="stepList">
+  <h2><span class="num">3</span>나의 제출서류 체크리스트</h2>
+  <div id="summary" style="font-size:14.5px;color:var(--mute);margin-bottom:8px"></div>
+  <div class="progtxt"><span id="progLabel">0 / 0 준비 완료</span><b id="progPct">0%</b></div>
+  <div class="prog"><i id="progBar"></i></div>
+  <div id="listBox"></div>
+  <div class="no-print">
+   <button class="act" onclick="window.print()">🖨️ 인쇄 / PDF 저장</button>
+   <button class="act sub" onclick="resetAll()">처음부터 다시</button>
+  </div>
+ </section>
+
+ <!-- 제출처 -->
+ <section class="card" id="sendBox">
+  <h2>📮 서류 제출처 (우편 또는 방문)</h2>
+  <div class="addr">
+   <div id="addrText"></div>
+  </div>
+  <button class="act no-print" onclick="copyAddr()" id="copyBtn">주소 복사</button>
+  <a class="act sub no-print" id="linkApply" target="_blank" rel="noopener">원서접수 사이트</a>
+  <a class="act sub no-print" id="linkNotice" target="_blank" rel="noopener">대학원 공지사항</a>
+  <a class="act sub no-print" id="linkGuide" target="_blank" rel="noopener">모집요강 원문</a>
+ </section>
+
+ <!-- 양식 -->
+ <section class="card no-print" id="formsBox">
+  <h2>📎 관련 양식</h2>
+  <div id="formsList"></div>
+ </section>
+
+ <!-- 문의 -->
+ <section class="card" id="contactBox">
+  <h2>☎ 문의처</h2>
+  <table id="contactTbl"></table>
+  <table id="deptContact" style="margin-top:10px"></table>
+ </section>
+
+ <footer>
+  ※ 본 페이지는 편의를 위한 요약 안내입니다. <b>최종 기준은 모집요강 원문</b>이며, 변경 사항은 대학원 공지사항을 확인하세요.<br>
+  <a id="footGuide" target="_blank" rel="noopener">모집요강 원문 보기</a>
+ </footer>
+</div>
+
+<script>
+/* =========================================================
+   ★ 매년 이 CONFIG 블록만 수정하면 됩니다 ★
+   ========================================================= */
+const CONFIG = {
+  year: "2027학년도 전기",
+  school: "조선대학교 미래인재융합대학원 석사학위과정 특별전형",
+  storageKey: "gsf-checklist-2027-1",   // 해마다 값을 바꾸면 이전 체크 기록이 초기화됨
+
+  // 일정 (ISO 형식, 한국시간)
+  deadlines: [
+    {label:"인터넷 원서접수 마감", at:"2026-11-16T17:00:00+09:00", text:"2026. 11. 16.(월) 17:00", sub:"인터넷으로만 접수 (방문·우편 불가)"},
+    {label:"구비서류 도착 마감",   at:"2026-11-17T17:00:00+09:00", text:"2026. 11. 17.(화) 17:00", sub:"우편은 마감일까지 '도착'해야 인정"}
+  ],
+
+  keyNotes: [
+    "인터넷 원서접수 후 서류까지 제출해야 접수가 완료됩니다.",
+    "증명서는 원서접수일로부터 6개월 이내 발급분만 인정됩니다.",
+    "제출한 서류는 반환되지 않으며, 서류 미제출 시 부적격 처리됩니다.",
+    "서류가 기한 내 교학팀에 도착해야 지원 절차가 완료됩니다."
+  ],
+
+  address: "(우)61452 전남광주통합특별시 동구 조선대길 146 조선대학교 대학원 교학팀 (본관 중앙 3층 3156호)",
+  links: {
+    apply:  "https://gn.chosun.ac.kr/app",
+    notice: "https://gsf.chosun.ac.kr/~gdf",
+    guide:  "https://gsf.chosun.ac.kr/~gdf"      // 모집요강 PDF 주소가 있으면 교체
+  },
+
+  contacts: [
+    {name:"대학원 교학팀 (원서접수 확인)", tel:"062-230-6404"},
+    {name:"조선대학교 대학원 교학팀 (서류 도착 확인)", tel:"062-608-5038 / 062-230-6429, 6435"}
+  ],
+
+  // 양식 (같은 저장소에 파일을 두고 file 경로 입력. 없으면 file:"" )
+  forms: [
+    {id:"consent", name:"[별표1] 국외 대학(원) 졸업자 학력조회동의서 서식", file:"forms/학력조회동의서.pdf", note:"모집요강 11쪽에 수록. 파일을 forms 폴더에 넣으면 링크가 활성화됩니다."}
+  ],
+
+  // 학과 (name, prof 주임교수, tel 연구실 230-****, ask: 추가질문 id)
+  depts: [
+    {name:"건축공학과", prof:"염대봉", tel:"230-6964", thesisFree:true},
+    {name:"군사학과", prof:"장상국", tel:"230-7488", ask:"military"},
+    {name:"대체의학과", prof:"전영진", tel:"230-6338"},
+    {name:"디자인학과", prof:"류명숙", tel:"230-7825", note:"세부전공: 문화융복합·미술심리치료·브랜드커뮤니케이션·스페이스퍼블릭·컬러테라피·패션뷰티"},
+    {name:"미용향장학과", prof:"이재욱", tel:"230-7151"},
+    {name:"보건체육학과", prof:"서영환", tel:"230-7538"},
+    {name:"보건학과", prof:"최성우", tel:"230-6344"},
+    {name:"사회복지학과", prof:"정성배", tel:"230-6786", thesisFree:true},
+    {name:"소프트웨어융합공학과", prof:"김판구", tel:"230-7636"},
+    {name:"융복합기술창업학과", prof:"김남훈", tel:"230-7028"},
+    {name:"임상약학과", prof:"황승림", tel:"230-6365", ask:"pharm", note:"세부전공: 임상약학·보건의료·식품과학"},
+    {name:"중독재활복지학과", prof:"정성배", tel:"230-6786"},
+    {name:"토목공학과", prof:"장우식", tel:"230-7085"}
+  ],
+
+  // 학과별 추가 질문 (id 는 위 depts.ask 와 연결)
+  asks: {
+    military: {
+      q: "현재 군에 복무 중(현역)이신가요?",
+      yes: "현역 복무 중", no: "복무 중 아님",
+      onYes: "military"   // 아래 docs 의 condition 키
+    },
+    pharm: {
+      q: "약사면허증 또는 전공 관련 자격증을 보유하고 있나요?",
+      yes: "보유", no: "미보유",
+      onYes: "pharmLicense"
+    }
+  },
+
+  // 공통 해당 여부 (체크하면 관련 서류 노출)
+  flags: [
+    {id:"employed", label:"현재 직장에 재직 중입니다", desc:"재직 중인 경우 재직증명서 제출 (현역군인은 군복무확인서로 갈음하므로 선택하지 않아도 됩니다)"},
+    {id:"expected", label:"졸업예정자입니다", desc:"2027년 2월 졸업(학위취득) 예정"},
+    {id:"transfer", label:"편입학을 한 적이 있습니다", desc:"편입 전·후 대학(원) 성적증명서 모두 필요"},
+    {id:"abroad",   label:"국외 대학(원)을 졸업했습니다", desc:"공증된 한글 번역본 필요"},
+    {id:"abroadDeg",label:"해외 대학(원)에서 최종 학위를 취득했습니다", desc:"학위조회 동의서와 아포스티유 필요"}
+  ],
+
+  // 서류. when: 노출 조건 (없으면 모든 지원자) / group: 구분
+  docs: [
+    {id:"app", group:"common", title:"입학지원서 1부", desc:"인터넷 접수 후 출력 → 서명 또는 인(도장). 접수 후에는 수정이 불가하니 출력 전 내용을 꼭 확인하세요."},
+    {id:"grad", group:"common", title:"대학(원) 졸업(예정)증명서 1부", desc:"학사학위증명서 또는 졸업(예정)증명서. 원서접수일 기준 6개월 이내 발급분."},
+    {id:"score", group:"common", title:"대학 전 학년 성적증명서 1부", desc:"반드시 평점평균과 평점만점이 기재되어야 합니다 (예: 총 평점평균 4.21/4.5). 6개월 이내 발급분."},
+
+    {id:"transferScore", group:"cond", when:"transfer", title:"편입 전 대학(원) 성적증명서 추가 1부", desc:"편입학자는 편입 전·후 대학(원)의 성적증명서를 각 1부씩 제출합니다. (원서 작성 시 대학명·평점은 최종 학교 기준으로 입력)"},
+    {id:"employment", group:"cond", when:"employed", title:"재직증명서 1부", desc:"현재 재직 중인 지원자 제출 서류입니다. 재직 중인 기관(직장)에서 발급받으세요. 발급일 기준은 다른 증명서와 같이 원서접수일로부터 6개월 이내 발급분으로 준비하는 것을 권장합니다."},
+    {id:"military", group:"cond", when:"military", title:"군복무확인서 1부", desc:"현역군인 지원자 제출 서류입니다. (모집요강 표기: 군복무확인서)  발급 부대에 문의하세요."},
+    {id:"pharmLicense", group:"cond", when:"pharmLicense", title:"약사면허증 또는 전공 관련 자격증 사본 1부", desc:"임상약학과 지원자 해당. 약사면허 소지자는 학과 특전(임상실무강사 자격 부여)이 있습니다."},
+    {id:"translation", group:"cond", when:"abroad", title:"공증된 한글 번역문 (원본에 첨부)", desc:"국외 대학 졸업증명서·성적증명서 등은 공증된 한글 번역문을 원본에 첨부해 제출합니다."},
+    {id:"apostille", group:"cond", when:"abroadDeg", title:"아포스티유(Apostille)", desc:"해외 대학(원)에서 최종 학위를 취득한 경우 제출. 해당 국가기관이 문서의 관인·서명을 확인해 발급한 증명서입니다."},
+    {id:"consentForm", group:"cond", when:"abroadDeg", title:"학위조회 동의서", desc:"국외 대학(원) 졸업자 학력조회동의서 [별표1] 서식에 작성·서명합니다.", form:"consent"},
+
+    {id:"gradLater", group:"later", when:"expected", title:"졸업증명서 (합격 후 제출)", desc:"타 대학(원) 졸업예정자로 합격한 경우, 아래 기간 내 교학팀에 반드시 제출 → 2027. 3. 2.(화) ~ 3. 5.(금)"},
+
+    {id:"interview", group:"later", title:"면접(구술시험) 당일 준비물: 수험표·신분증", desc:"신분증은 주민등록증·운전면허증·여권 중 하나. 지원학과에서 요구한 준비물이 있으면 함께 지참하세요. (면접 2026. 11. 28.(토) ~ 12. 2.(수), 학과에서 별도 연락)"}
+  ]
+};
+
+/* ========================= 로직 ========================= */
+const $ = id => document.getElementById(id);
+let S = {dept:null, asks:{}, flags:{}, checked:{}};
+
+function load(){ try{ const j=JSON.parse(localStorage.getItem(CONFIG.storageKey)); if(j) S=Object.assign(S,j);}catch(e){} }
+function save(){ try{ localStorage.setItem(CONFIG.storageKey, JSON.stringify(S)); }catch(e){} }
+
+function init(){
+  load();
+  $("hdSub").textContent = CONFIG.year + " · " + CONFIG.school;
+  document.title = CONFIG.year + " 제출서류 체크리스트 | 조선대학교 미래인재융합대학원";
+  $("keyNotes").innerHTML = CONFIG.keyNotes.map(t=>`<li>${t}</li>`).join("");
+  $("addrText").innerHTML = `<b>받는 곳</b><br>${CONFIG.address}`;
+  $("linkApply").href = CONFIG.links.apply;
+  $("linkNotice").href = CONFIG.links.notice;
+  $("linkGuide").href = CONFIG.links.guide;
+  $("footGuide").href = CONFIG.links.guide;
+  $("contactTbl").innerHTML = `<tr><th>구분</th><th>전화</th></tr>` + CONFIG.contacts.map(c=>`<tr><td>${c.name}</td><td><a href="tel:${c.tel.split(/[\/,]/)[0].trim()}">${c.tel}</a></td></tr>`).join("");
+  renderDday(); setInterval(renderDday, 60000);
+  renderDepts(); renderFlags(); renderAll();
+}
+
+function renderDday(){
+  const now = new Date();
+  $("ddayBox").innerHTML = CONFIG.deadlines.map(d=>{
+    const diff = new Date(d.at) - now;
+    let big, cls="";
+    if(diff<=0){ big="마감"; }
+    else{
+      const days = Math.floor(diff/864e5), hrs = Math.floor(diff%864e5/36e5);
+      big = days>0 ? `D-${days}` : `${hrs}시간 남음`;
+      if(days<=3) cls="urgent";
+    }
+    return `<div class="dd"><b>${d.label}</b><div class="big ${cls}">${big}</div><span>${d.text}<br>${d.sub||""}</span></div>`;
+  }).join("");
+}
+
+function renderDepts(){
+  $("deptOpts").innerHTML = CONFIG.depts.map((d,i)=>`<button class="opt ${S.dept===i?'on':''}" onclick="pickDept(${i})">${d.name}</button>`).join("");
+  renderAsk();
+}
+function pickDept(i){
+  if(S.dept!==i){ S.asks={}; }
+  S.dept=i; save(); renderDepts(); renderAll();
+}
+function renderAsk(){
+  const box=$("deptQ"); box.innerHTML="";
+  if(S.dept==null) return;
+  const d=CONFIG.depts[S.dept];
+  let html="";
+  if(d.note) html+=`<p class="privacy">ℹ️ ${d.note}</p>`;
+  if(d.thesisFree) html+=`<p class="privacy">ℹ️ ${d.name}는 논문면제과정 운영 학과입니다. (제출서류는 동일)</p>`;
+  if(d.ask){
+    const a=CONFIG.asks[d.ask], v=S.asks[d.ask];
+    html+=`<div class="q"><p>${a.q}</p><div class="row">
+      <button class="opt ${v==='yes'?'on':''}" onclick="pickAsk('${d.ask}','yes')">${a.yes}</button>
+      <button class="opt ${v==='no'?'on':''}" onclick="pickAsk('${d.ask}','no')">${a.no}</button></div></div>`;
+  }
+  box.innerHTML=html;
+}
+function pickAsk(id,v){ S.asks[id]=v; save(); renderAsk(); renderAll(); }
+
+function renderFlags(){
+  $("flagBox").innerHTML = CONFIG.flags.map(f=>`
+   <label class="flag ${S.flags[f.id]?'on':''}">
+    <input type="checkbox" ${S.flags[f.id]?'checked':''} onchange="toggleFlag('${f.id}',this.checked)">
+    <span><b>${f.label}</b><small>${f.desc}</small></span></label>`).join("");
+}
+function toggleFlag(id,v){ S.flags[id]=v; save(); renderFlags(); renderAll(); }
+
+function activeKeys(){
+  const k={};
+  Object.keys(S.flags).forEach(x=>{ if(S.flags[x]) k[x]=true; });
+  if(S.dept!=null){
+    const d=CONFIG.depts[S.dept];
+    if(d.ask && S.asks[d.ask]==='yes'){ k[CONFIG.asks[d.ask].onYes]=true; }
+  }
+  return k;
+}
+
+function pendingAsk(){
+  if(S.dept==null) return false;
+  const d=CONFIG.depts[S.dept];
+  return d.ask && !S.asks[d.ask];
+}
+
+function renderAll(){
+  const box=$("listBox");
+  if(S.dept==null){
+    box.innerHTML=`<div class="notice">먼저 위에서 <b>지원 학과</b>를 선택해 주세요.</div>`;
+    $("summary").textContent=""; setProg(0,0); renderForms([]); renderDeptContact(); return;
+  }
+  if(pendingAsk()){
+    box.innerHTML=`<div class="notice">학과 선택 아래의 <b>추가 질문</b>에 답해 주세요.</div>`;
+    $("summary").textContent=""; setProg(0,0); renderForms([]); renderDeptContact(); return;
+  }
+  const keys=activeKeys();
+  const docs=CONFIG.docs.filter(d=>!d.when || keys[d.when]);
+  const d=CONFIG.depts[S.dept];
+  $("summary").innerHTML=`지원학과: <b>${d.name}</b> · 제출서류 <b>${docs.filter(x=>x.group!=='later').length}</b>종`;
+  const groups=[["common","📌 모든 지원자 공통 서류"],["cond","➕ 해당자 추가 서류"],["later","⏰ 나중에 준비할 것 (합격 후·면접)"]];
+  let html="";
+  groups.forEach(([g,title])=>{
+    const list=docs.filter(x=>x.group===g);
+    if(!list.length) return;
+    html+=`<div class="grp"><h3>${title}</h3>`+list.map(x=>{
+      const on=!!S.checked[x.id];
+      const tag = g==="common"?`<span class="tag">필수</span>`: g==="cond"?`<span class="tag cond">해당자</span>`:`<span class="tag later">추후</span>`;
+      const f = x.form ? CONFIG.forms.find(y=>y.id===x.form) : null;
+      const link = f ? (f.file?` <a href="${f.file}" target="_blank" rel="noopener" onclick="event.stopPropagation()">양식 열기 ↗</a>`:` <span class="tag cond">양식 파일 준비 중</span>`) : "";
+      return `<label class="item ${on?'done':''}"><input type="checkbox" ${on?'checked':''} onchange="toggleDoc('${x.id}',this.checked)">
+        <div><div class="t">${x.title}${tag}</div><div class="d">${x.desc}${link}</div></div></label>`;
+    }).join("")+`</div>`;
+  });
+  box.innerHTML=html;
+  const required=docs.filter(x=>x.group!=='later');
+  setProg(required.filter(x=>S.checked[x.id]).length, required.length);
+  renderForms(docs); renderDeptContact();
+}
+function toggleDoc(id,v){ S.checked[id]=v; save(); renderAll(); }
+
+function setProg(a,b){
+  const p=b?Math.round(a/b*100):0;
+  $("progBar").style.width=p+"%"; $("progPct").textContent=p+"%";
+  $("progLabel").textContent=(b&&a===b)?"🎉 서류 준비 완료! 우편 발송(또는 방문) 기한을 확인하세요.":`${a} / ${b} 준비 완료`;
+}
+
+function renderForms(docs){
+  const ids=new Set(docs.filter(x=>x.form).map(x=>x.form));
+  const list=CONFIG.forms.filter(f=>ids.has(f.id));
+  const box=$("formsBox");
+  if(!list.length){ box.classList.add("hide"); return; }
+  box.classList.remove("hide");
+  $("formsList").innerHTML=list.map(f=>`<p style="margin:0 0 6px"><b>${f.name}</b><br>
+   ${f.file?`<a class="act sub" href="${f.file}" target="_blank" rel="noopener">양식 열기 / 다운로드</a>`:`<span class="privacy">${f.note||""}</span>`}</p>`).join("");
+}
+
+function renderDeptContact(){
+  const t=$("deptContact");
+  if(S.dept==null){ t.innerHTML=""; return; }
+  const d=CONFIG.depts[S.dept];
+  t.innerHTML=`<tr><th>지원학과</th><th>주임교수</th><th>연구실</th></tr><tr><td>${d.name}</td><td>${d.prof}</td><td><a href="tel:0622${d.tel.replace('230-','30')}">${d.tel}</a></td></tr>`;
+}
+
+function copyAddr(){
+  const txt=CONFIG.address.replace(/\s+/g," ");
+  const done=()=>{ const b=$("copyBtn"); b.textContent="✔ 복사되었습니다"; setTimeout(()=>b.textContent="주소 복사",1800); };
+  if(navigator.clipboard) navigator.clipboard.writeText(txt).then(done,()=>fallback());
+  else fallback();
+  function fallback(){ const a=document.createElement("textarea"); a.value=txt; document.body.appendChild(a); a.select(); try{document.execCommand("copy");done();}catch(e){} a.remove(); }
+}
+
+function resetAll(){
+  if(!confirm("선택과 체크 내용을 모두 지우고 처음부터 시작할까요?")) return;
+  S={dept:null,asks:{},flags:{},checked:{}}; save(); renderDepts(); renderFlags(); renderAll();
+}
+
+init();
+</script>
+</body>
+</html>
